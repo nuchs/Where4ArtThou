@@ -1,0 +1,27 @@
+apply plugin:'java'
+
+sourceSets {
+  main {
+    java {
+      srcDir 'src'
+    }
+  }
+
+  test {
+    java {
+      srcDir 'tests'
+    }
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+    compile "org.apache.hadoop:hadoop-client:2.5.1"
+    testCompile "junit:junit:4.11"
+    testCompile "org.mockito:mockito-core:1.+"
+}
+
+
