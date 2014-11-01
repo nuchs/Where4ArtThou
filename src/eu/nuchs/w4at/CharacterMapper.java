@@ -5,17 +5,10 @@ import org.apache.hadoop.mapreduce.*;
 
 import java.io.IOException;
 
-public class CharacterMapper extends Mapper<LongWritable,Text,Text,IntWritable> {
-
-    private final IntWritable one = new IntWritable(1);
-    private Text word = new Text();
+public class CharacterMapper extends Mapper<Text,Text,Text,Text> {
 
     @Override
-    protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-        String[] words = value.toString().split("\\s+");
-        for ( String currentWord : words ) {
-            word.set(currentWord);
-            context.write(word, one);
-        }
+    protected void map(Text key, Text value, Context context) throws IOException, InterruptedException {
+
     }
 }

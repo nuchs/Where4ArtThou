@@ -5,21 +5,19 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
 
-public class CharacterReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
-
-    private final IntWritable wordCount = new IntWritable(0);
+public class CharacterReducer extends Reducer<Text,Text,Text,Text> {
 
     @Override
-    protected void reduce(Text word, Iterable<IntWritable> instances, Context context) throws IOException, InterruptedException {
+    protected void reduce(Text characterName, Iterable<Text> associates, Context context) throws IOException, InterruptedException {
 
-        int count = 0;
+        Character character = new Character(characterName.toString());
 
-        for (IntWritable dummy : instances) {
-            count++;
+        for ( Text associate : associates ) {
+            character.addAssociate(associate.toString());
         }
 
-        wordCount.set(count);
-
-        context.write(word, wordCount);
+        context.write(dummyKey, new Text(character.toJson()));
     }
+
+    private final Text dummyKey = new Text("");
 }
