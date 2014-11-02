@@ -1,0 +1,1 @@
+hadoop jar build/libs/w4at.jar eu.nuchs.w4at.Driver /w4at/input /w4at/output 2>&1 | tee hadoop.log

@@ -21,7 +21,7 @@ public class Driver {
         job.setMapperClass(CharacterMapper.class);
         job.setReducerClass(CharacterReducer.class);
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(IntWritable.class);
+        job.setOutputValueClass(Text.class);
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));

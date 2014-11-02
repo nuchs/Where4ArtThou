@@ -5,10 +5,10 @@ import org.apache.hadoop.mapreduce.*;
 
 import java.io.IOException;
 
-public class CharacterMapper extends Mapper<Text,Text,Text,Text> {
+public class CharacterMapper extends Mapper<LongWritable,Text,Text,Text> {
 
     @Override
-    protected void map(Text key, Text value, Context context) throws IOException, InterruptedException {
+    protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
         scene.addLine(value.toString());
 
