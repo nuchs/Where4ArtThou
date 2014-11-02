@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import java.util.*;
 
 public class Character {
+
     public Character(String characterName) {
 
         if (characterName == null || characterName.trim().isEmpty()) {
@@ -15,7 +16,9 @@ public class Character {
     }
 
     public void addAssociate(String associate) {
-        associates.add(associate);
+        if (!associates.contains(associate) && associate != name) {
+            associates.add(associate);
+        }
     }
 
     public String toJson() {

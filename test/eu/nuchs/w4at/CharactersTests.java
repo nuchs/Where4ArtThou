@@ -42,10 +42,38 @@ public class CharactersTests {
     }
 
     @Test
+    public void AddingAnAssociateMultipleTimesShouldAddItOnceToTheJSONRepresentation() {
+        Character sut = new Character("Romeo");
+        String associate = "Juliet";
+        sut.addAssociate(associate);
+        sut.addAssociate(associate);
+        sut.addAssociate(associate);
+
+        assertThat(countSubStringOccurences(associate, sut.toJson()), is(equalTo(1)));
+    }
+
+    @Test
+    public void ACharacterShouldNotAppearInItsAssociatesListInTheJSONRepresentation() {
+        String name = "Prospero";
+        Character sut = new Character(name);
+        sut.addAssociate(name);
+
+        assertThat(countSubStringOccurences(name, sut.toJson()), is(equalTo(1)));
+    }
+
+    @Test
     public void ACharactersJSONRepresentationShouldBeValid() {
         Character sut = new Character("Timon");
         gson.fromJson(sut.toJson(), Character.class);
     }
 
-    Gson gson = new Gson();
+    private int countSubStringOccurences(String associate, String json) {
+        int count = 0;
+        for (int i = json.indexOf(associate); i > -1; i = json.indexOf(associate, i+1)) {
+            count++;
+        }
+        return count;
+    }
+
+    private Gson gson = new Gson();
 }
