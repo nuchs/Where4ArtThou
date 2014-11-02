@@ -36,6 +36,11 @@ public class Association {
         return (3 * character.hashCode()) + (5 * associate.hashCode());
     }
 
+    @Override
+    public String toString() {
+        return character + " met " + associate;
+    }
+
     String getCharacter () {
         return character;
     }
