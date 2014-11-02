@@ -56,7 +56,7 @@ public class AssociationTests {
     @Test
     public void AnAssociationShouldNotBeEqualToAnotherType() {
         Association sut = new Association("Bob", "Vic");
-        assertThat(sut, is(not(equalTo("Bob Vic"))));
+        assertThat(sut.equals("Bob Vic"), is(false));
     }
 
     @Test
