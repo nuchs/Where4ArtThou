@@ -2,8 +2,6 @@
 #
 # Add the following to your bashrc
 # export HADOOP_HOME=$HOME/hadoop
-# export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
-# export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib"
 # export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
 #
 # etc/hadoop/core-site.xml:
@@ -23,9 +21,11 @@
 #</configuration>
 #
 # etc/hadoop/hadoop-env.sh
-# ...
-# The java implementation to use.
+# JAVA_HOME should point to your java dist
 # export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-i386/"
+# export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+# export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib"
+# export HADOOP_DATANODE_OPTS="-client -Dhadoop.security.logger=ERROR,RFAS $HADOOP_DATANODE_OPTS"
 
 # Create the ssh keys to allow passwordless acceess
 ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
