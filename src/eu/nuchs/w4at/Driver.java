@@ -23,7 +23,6 @@ public class Driver {
         job.setReducerClass(CharacterReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
-        job.addFileToClassPath(new Path("/w4at/libs/gson-2.3.jar"));
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));

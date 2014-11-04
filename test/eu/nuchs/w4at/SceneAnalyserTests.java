@@ -22,6 +22,14 @@ public class SceneAnalyserTests {
     }
 
     @Test
+    public void ACharacterDoesNotAssociateWithThemself() {
+        SceneAnalyser sut = new SceneAnalyser(new LineAnalyser());
+        sut.addLine("KIM JONG IL. I'm so ronery");
+        List<Association> associations = sut.GetNewAssociations();
+        assertThat(associations.isEmpty(), is(true));
+    }
+
+    @Test
     public void WhenTwoCharactersHaveSpokenTheyShouldBeAssociated() {
         SceneAnalyser sut = new SceneAnalyser(new LineAnalyser());
         Association expectedAssociation1 = new Association("DAVE", "HAL");
@@ -36,12 +44,25 @@ public class SceneAnalyserTests {
     }
 
     @Test
-    public void AfterASceneChangeThereShouldBeNoAssociations() {
+    public void CharactersInOneSceneShouldNotBeAssociatedWithOnesFromAnotherScene() {
         SceneAnalyser sut = new SceneAnalyser(new LineAnalyser());
 
         sut.addLine("  DAVE. Open the pod bay doors, HAL");
         sut.addLine("  HAL. I'm sorry Dave. I'm afraid I can't do that");
         sut.addLine("SCENE IV");
+        sut.addLine("  BUNGLE. How did I end up on Jupiter?");
+        List<Association> associations = sut.GetNewAssociations();
+
+        assertThat(associations.isEmpty(), is(true));
+    }
+
+    @Test
+    public void WhenACharacterSpeaksAgainNoNewAssociationsShouldBeCreated() {
+        SceneAnalyser sut = new SceneAnalyser(new LineAnalyser());
+
+        sut.addLine("  DAVE. Open the pod bay doors, HAL");
+        sut.addLine("  HAL. I'm sorry Dave. I'm afraid I can't do that");
+        sut.addLine("  DAVE. Can I have my yoghurt back then?");
         List<Association> associations = sut.GetNewAssociations();
 
         assertThat(associations.isEmpty(), is(true));
