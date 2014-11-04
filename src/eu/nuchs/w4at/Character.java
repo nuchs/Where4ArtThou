@@ -16,7 +16,7 @@ public class Character {
     }
 
     public void addAssociate(String associate) {
-        if (!associates.contains(associate) && !associate.equals(name) {
+        if (!associates.contains(associate) && !associate.equals(name)) {
             associates.add(associate);
         }
     }
