@@ -1,6 +1,6 @@
 package eu.nuchs.w4at;
 
-public enum LineType {
+enum LineType {
     UNCLASSIFIED,
     SCENE,
     CHARACTER

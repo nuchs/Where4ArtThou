@@ -5,7 +5,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
 
-public class CharacterReducer extends Reducer<Text,Text,Text,Text> {
+public class TheReducer extends Reducer<Text,Text,Text,Text> {
 
     @Override
     protected void reduce(Text characterName, Iterable<Text> associates, Context context) throws IOException, InterruptedException {

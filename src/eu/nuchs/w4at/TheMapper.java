@@ -5,7 +5,7 @@ import org.apache.hadoop.mapreduce.*;
 
 import java.io.IOException;
 
-public class CharacterMapper extends Mapper<LongWritable,Text,Text,Text> {
+public class TheMapper extends Mapper<LongWritable,Text,Text,Text> {
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {

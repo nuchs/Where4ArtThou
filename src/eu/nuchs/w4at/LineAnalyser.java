@@ -2,12 +2,9 @@ package eu.nuchs.w4at;
 
 import java.util.regex.*;
 
-/**
- * Created by lauren on 02/11/2014.
- */
-public class LineAnalyser {
+class LineAnalyser {
 
-    public LineType analyse(String line) {
+    LineType analyse(String line) {
         if (startsAScene(line)) {
             return LineType.SCENE;
         } else if (characterStartsSpeaking(line)) {
@@ -17,7 +14,7 @@ public class LineAnalyser {
         }
     }
 
-    public String getSpeaker(String line) {
+    String getSpeaker(String line) {
         Matcher match= newSpeaker.matcher(line);
 
         if (match.find()) {

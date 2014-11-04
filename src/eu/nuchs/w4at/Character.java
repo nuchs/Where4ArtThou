@@ -4,25 +4,29 @@ import com.google.gson.Gson;
 
 import java.util.*;
 
-public class Character {
+class Character {
 
-    public Character(String characterName) {
+    Character(String characterName) {
 
-        if (characterName == null || characterName.trim().isEmpty()) {
+        if (isNullOrWhiteSpace(characterName)) {
             throw new IllegalArgumentException("You must provide a name for a character");
         }
 
         name = characterName;
     }
 
-    public void addAssociate(String associate) {
+    void addAssociate(String associate) {
         if (!associates.contains(associate) && !associate.equals(name)) {
             associates.add(associate);
         }
     }
 
-    public String toJson() {
+    String toJson() {
         return gson.toJson(this);
+    }
+
+    private boolean isNullOrWhiteSpace(String characterName) {
+        return characterName == null || characterName.trim().isEmpty();
     }
 
     private static Gson gson = new Gson();

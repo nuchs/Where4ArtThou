@@ -15,12 +15,11 @@ public class Driver {
             System.exit(1);
         }
 
-
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "Where4 art thou");
         job.setJarByClass(Driver.class);
-        job.setMapperClass(CharacterMapper.class);
-        job.setReducerClass(CharacterReducer.class);
+        job.setMapperClass(TheMapper.class);
+        job.setReducerClass(TheReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 

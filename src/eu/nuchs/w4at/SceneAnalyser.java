@@ -1,10 +1,9 @@
 package eu.nuchs.w4at;
 
 import java.lang.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class SceneAnalyser {
+class SceneAnalyser {
     public SceneAnalyser(LineAnalyser lineAnalyser) {
         if (lineAnalyser == null) {
             throw new NullPointerException("analyser");
@@ -13,7 +12,7 @@ public class SceneAnalyser {
         analyser = lineAnalyser;
     }
 
-    public List<Association> GetNewAssociations() {
+    List<Association> GetNewAssociations() {
         ArrayList<Association> associations = new ArrayList<Association>();
 
         if(thereIsANewSpeaker()) {
@@ -25,7 +24,7 @@ public class SceneAnalyser {
         return associations;
     }
 
-    public void addLine(String line) {
+    void addLine(String line) {
         LineType type = analyser.analyse(line);
         newSpeaker = "";
 
@@ -63,7 +62,7 @@ public class SceneAnalyser {
         return type == LineType.SCENE;
     }
 
-    String newSpeaker = "";
+    private String newSpeaker = "";
     private LineAnalyser analyser;
     private ArrayList<String> characters = new ArrayList<String>();
 }
