@@ -15,7 +15,7 @@ class LineAnalyser {
     }
 
     String getSpeaker(String line) {
-        Matcher match= newSpeaker.matcher(line);
+        Matcher match = newSpeaker.matcher(line);
 
         if (match.find()) {
             return match.group(1);

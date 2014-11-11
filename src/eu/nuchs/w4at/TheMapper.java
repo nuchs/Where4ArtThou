@@ -5,22 +5,22 @@ import org.apache.hadoop.mapreduce.*;
 
 import java.io.IOException;
 
-public class TheMapper extends Mapper<LongWritable,Text,Text,Text> {
+public class TheMapper extends Mapper<LongWritable, Text, Text, HadoopAssociation> {
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
-        scene.addLine(value.toString());
+        play.addLine(value.toString());
 
-        for (Association association : scene.GetNewAssociations()) {
+        for (Association association : play.GetNewAssociations()) {
             character.set(association.getCharacter());
-            associate.set(association.getAssociate());
+            associate.set(association.getAssociate(), association.getLocation());
 
             context.write(character, associate);
         }
     }
 
     private Text character = new Text();
-    private Text associate = new Text();
-    private SceneAnalyser scene = new SceneAnalyser(new LineAnalyser());
+    private HadoopAssociation associate = new HadoopAssociation();
+    private PlayAnalyser play = new PlayAnalyser(new LineAnalyser());
 }

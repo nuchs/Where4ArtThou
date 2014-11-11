@@ -28,15 +28,15 @@ public class CharactersTests {
     @Test
     public void AnAddedAssociateWillAppearInTheJSONRepresentation() {
         Character sut = new Character("Antipholus");
-        sut.addAssociate("Dromio");
+        sut.addAssociate("Dromio", "nowhere");
         assertThat(sut.toJson(), containsString("\"associates\":[\"Dromio\"]"));
     }
 
     @Test
     public void AllAssociatesShouldAppearInTheJSONRepresentation() {
         Character sut = new Character("Cordeilla");
-        sut.addAssociate("Goneril");
-        sut.addAssociate("Regan");
+        sut.addAssociate("Goneril", "nowhere");
+        sut.addAssociate("Regan", "nowhere");
         assertThat(sut.toJson(), containsString("Goneril"));
         assertThat(sut.toJson(), containsString("Regan"));
     }
@@ -45,9 +45,9 @@ public class CharactersTests {
     public void AddingAnAssociateMultipleTimesShouldAddItOnceToTheJSONRepresentation() {
         Character sut = new Character("Romeo");
         String associate = "Juliet";
-        sut.addAssociate(associate);
-        sut.addAssociate(associate);
-        sut.addAssociate(associate);
+        sut.addAssociate(associate, "nowhere");
+        sut.addAssociate(associate, "nowhere");
+        sut.addAssociate(associate, "nowhere");
 
         assertThat(countSubStringOccurences(associate, sut.toJson()), is(equalTo(1)));
     }
@@ -56,7 +56,7 @@ public class CharactersTests {
     public void ACharacterShouldNotAppearInItsAssociatesListInTheJSONRepresentation() {
         String name = "Prospero";
         Character sut = new Character(name);
-        sut.addAssociate(name);
+        sut.addAssociate(name, "nowhere");
 
         assertThat(countSubStringOccurences(name, sut.toJson()), is(equalTo(1)));
     }

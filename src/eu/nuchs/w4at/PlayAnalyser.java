@@ -3,8 +3,8 @@ package eu.nuchs.w4at;
 import java.lang.*;
 import java.util.*;
 
-class SceneAnalyser {
-    public SceneAnalyser(LineAnalyser lineAnalyser) {
+class PlayAnalyser {
+    public PlayAnalyser(LineAnalyser lineAnalyser) {
         if (lineAnalyser == null) {
             throw new NullPointerException("analyser");
         }
@@ -15,7 +15,7 @@ class SceneAnalyser {
     List<Association> GetNewAssociations() {
         ArrayList<Association> associations = new ArrayList<Association>();
 
-        if(thereIsANewSpeaker()) {
+        if (thereIsANewSpeaker()) {
             for (String character : characters) {
                 associateExistingCharacterWithNewSpeaker(character, associations);
             }
@@ -38,13 +38,13 @@ class SceneAnalyser {
 
     private void associateExistingCharacterWithNewSpeaker(String character, ArrayList<Association> associations) {
         if (!newSpeaker.equals(character)) {
-            associations.add(new Association(character, newSpeaker));
-            associations.add(new Association(newSpeaker, character));
+            associations.add(new Association(character, newSpeaker, "nowhere"));
+            associations.add(new Association(newSpeaker, character, "nowhere"));
         }
     }
 
     private void recordIfNew(String speaker) {
-        if(!characters.contains(speaker)) {
+        if (!characters.contains(speaker)) {
             newSpeaker = speaker;
             characters.add(newSpeaker);
         }

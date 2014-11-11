@@ -9,7 +9,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class Driver {
 
-    public static void main (String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
         if (args.length != 2) {
             System.err.println("Usage: eu.nuchs.w4at.Driver <input> <output>");
             System.exit(1);
@@ -19,7 +19,7 @@ public class Driver {
         Job job = Job.getInstance(conf, "Where4 art thou");
         job.setJarByClass(Driver.class);
         job.setMapperClass(TheMapper.class);
-        job.setReducerClass(TheReducer.class);
+        job.setReducerClass(TheCharacterReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 

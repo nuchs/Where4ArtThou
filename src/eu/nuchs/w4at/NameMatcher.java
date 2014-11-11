@@ -41,8 +41,8 @@ class NameMatcher {
         char[] name = nameToMatch.toCharArray();
         int index = 0;
 
-        for(char letter : pattern.toCharArray()) {
-            while(letter != name[index]) {
+        for (char letter : pattern.toCharArray()) {
+            while (letter != name[index]) {
                 index++;
 
                 if (index >= name.length) {
