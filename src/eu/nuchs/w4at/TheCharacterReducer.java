@@ -14,7 +14,7 @@ public class TheCharacterReducer extends Reducer<Text, HadoopAssociation, Text, 
 
         for (HadoopAssociation associateEvent : associates) {
             Text associate = associateEvent.getAssociate();
-            Text location = associateEvent.getAssociate();
+            Text location = associateEvent.getLocation();
             character.addAssociate(associate.toString(), location.toString());
         }
 

@@ -9,6 +9,11 @@ import java.io.IOException;
 
 public class HadoopAssociation implements Writable {
 
+    public void HadoopAssociation () {
+        associate = new Text("");
+        location = new Text("");
+    }
+
     public void set(String anAssociate, String aLocation) {
 
         if (isNullOrWhiteSpace(anAssociate)) {

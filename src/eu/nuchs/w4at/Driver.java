@@ -20,6 +20,8 @@ public class Driver {
         job.setJarByClass(Driver.class);
         job.setMapperClass(TheMapper.class);
         job.setReducerClass(TheCharacterReducer.class);
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(HadoopAssociation.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 
