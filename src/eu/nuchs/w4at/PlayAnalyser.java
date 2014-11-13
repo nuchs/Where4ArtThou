@@ -31,15 +31,21 @@ class PlayAnalyser {
         if (someoneSpoke(type)) {
             String speaker = analyser.getSpeaker(line);
             recordIfNew(speaker);
+            newScene = false;
         } else if (aNewSceneHasStarted(type)) {
             characters.clear();
+            scene = "nowhere";
+            newScene = true;
+        } else if (newScene) {
+            scene = line.trim();
+            newScene = false;
         }
     }
 
     private void associateExistingCharacterWithNewSpeaker(String character, ArrayList<Association> associations) {
         if (!newSpeaker.equals(character)) {
-            associations.add(new Association(character, newSpeaker, "nowhere"));
-            associations.add(new Association(newSpeaker, character, "nowhere"));
+            associations.add(new Association(character, newSpeaker, scene));
+            associations.add(new Association(newSpeaker, character, scene));
         }
     }
 
@@ -62,7 +68,9 @@ class PlayAnalyser {
         return type == LineType.SCENE;
     }
 
+    private boolean newScene = false;
     private String newSpeaker = "";
+    private String scene="nowhere";
     private LineAnalyser analyser;
     private ArrayList<String> characters = new ArrayList<String>();
 }

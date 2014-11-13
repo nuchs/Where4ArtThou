@@ -42,14 +42,14 @@ public class CharactersTests {
     }
 
     @Test
-    public void AddingAnAssociateMultipleTimesShouldAddItOnceToTheJSONRepresentation() {
+    public void AddingAnAssociateMultipleTimesShouldAddItOnceInTheAssociatesAndOnceInTheMeetings() {
         Character sut = new Character("Romeo");
         String associate = "Juliet";
         sut.addAssociate(associate, "nowhere");
         sut.addAssociate(associate, "nowhere");
         sut.addAssociate(associate, "nowhere");
 
-        assertThat(countSubStringOccurences(associate, sut.toJson()), is(equalTo(1)));
+        assertThat(countSubStringOccurences(associate, sut.toJson()), is(equalTo(2)));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package eu.nuchs.w4at;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -16,14 +17,12 @@ public class PlayAnalyserTests {
 
     @Test
     public void ASceneShouldNotHaveAnyAssociationsToBeginWith() {
-        PlayAnalyser sut = new PlayAnalyser(new LineAnalyser());
         List<Association> associations = sut.GetNewAssociations();
         assertThat(associations.isEmpty(), is(true));
     }
 
     @Test
     public void ACharacterDoesNotAssociateWithThemself() {
-        PlayAnalyser sut = new PlayAnalyser(new LineAnalyser());
         sut.addLine("KIM JONG IL. I'm so ronery");
         List<Association> associations = sut.GetNewAssociations();
         assertThat(associations.isEmpty(), is(true));
@@ -31,7 +30,6 @@ public class PlayAnalyserTests {
 
     @Test
     public void WhenTwoCharactersHaveSpokenTheyShouldBeAssociated() {
-        PlayAnalyser sut = new PlayAnalyser(new LineAnalyser());
         Association expectedAssociation1 = new Association("DAVE", "HAL", "nowhere");
         Association expectedAssociation2 = new Association("HAL", "DAVE", "nowhere");
 
@@ -45,8 +43,6 @@ public class PlayAnalyserTests {
 
     @Test
     public void CharactersInOneSceneShouldNotBeAssociatedWithOnesFromAnotherScene() {
-        PlayAnalyser sut = new PlayAnalyser(new LineAnalyser());
-
         sut.addLine("  DAVE. Open the pod bay doors, HAL");
         sut.addLine("  HAL. I'm sorry Dave. I'm afraid I can't do that");
         sut.addLine("SCENE IV");
@@ -58,8 +54,6 @@ public class PlayAnalyserTests {
 
     @Test
     public void WhenACharacterSpeaksAgainNoNewAssociationsShouldBeCreated() {
-        PlayAnalyser sut = new PlayAnalyser(new LineAnalyser());
-
         sut.addLine("  DAVE. Open the pod bay doors, HAL");
         sut.addLine("  HAL. I'm sorry Dave. I'm afraid I can't do that");
         sut.addLine("  DAVE. Can I have my yoghurt back then?");
@@ -67,4 +61,45 @@ public class PlayAnalyserTests {
 
         assertThat(associations.isEmpty(), is(true));
     }
+
+    @Test
+    public void CharactersShouldBeAssociatedAtTheScenesDescription() {
+        Association expectedAssociation1 = new Association("DAVE", "HAL", "Discovery 1");
+        Association expectedAssociation2 = new Association("HAL", "DAVE", "Discovery 1");
+
+        sut.addLine("SCENE IV");
+        sut.addLine("Discovery 1");
+        sut.addLine("  DAVE. Open the pod bay doors, HAL");
+        sut.addLine("  HAL. I'm sorry Dave. I'm afraid I can't do that");
+        List<Association> associations = sut.GetNewAssociations();
+
+        assertThat(associations, hasItem(expectedAssociation1));
+        assertThat(associations, hasItem(expectedAssociation2));
+    }
+
+    @Test
+    public void ChangingSceneShouldChangeTheSceneDescription() {
+        Association expectedAssociation1 = new Association("DAVE", "HAL", "Peru");
+        Association expectedAssociation2 = new Association("HAL", "DAVE", "Peru");
+
+        sut.addLine("SCENE IV");
+        sut.addLine("Discovery 1");
+        sut.addLine("  DAVE. Open the pod bay doors, HAL");
+        sut.addLine("  HAL. I'm sorry Dave. I'm afraid I can't do that");
+        sut.addLine("SCENE V");
+        sut.addLine("Peru");
+        sut.addLine("  DAVE. How did I get here?");
+        sut.addLine("  HAL. I'm not sure");
+        List<Association> associations = sut.GetNewAssociations();
+
+        assertThat(associations, hasItem(expectedAssociation1));
+        assertThat(associations, hasItem(expectedAssociation2));
+    }
+
+    @Before
+    public void SetUp () {
+        sut = new PlayAnalyser(new LineAnalyser());
+    }
+
+    private PlayAnalyser sut;
 }

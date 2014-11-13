@@ -16,8 +16,12 @@ class Character {
     }
 
     void addAssociate(String associate, String location) {
-        if (!associates.contains(associate) && !associate.equals(name)) {
-            associates.add(associate);
+        if (!associate.equals(name)) {
+            if (!associates.contains(associate)) {
+                associates.add(associate);
+            }
+
+            meetings.add(location, associate);
         }
     }
 
@@ -32,4 +36,5 @@ class Character {
     private static Gson gson = new Gson();
     private String name;
     private List<String> associates = new ArrayList<String>();
+    private Meetings meetings = new Meetings();
 }
