@@ -96,6 +96,23 @@ public class PlayAnalyserTests {
         assertThat(associations, hasItem(expectedAssociation2));
     }
 
+    @Test
+    public void BlankLinesWillBeSkippedWhenLookingForTheSceneDescription () {
+        Association expectedAssociation1 = new Association("DAVE", "HAL", "Discovery 1");
+        Association expectedAssociation2 = new Association("HAL", "DAVE", "Discovery 1");
+
+        sut.addLine("SCENE IV");
+        sut.addLine("        ");
+        sut.addLine("        ");
+        sut.addLine("Discovery 1");
+        sut.addLine("  DAVE. Open the pod bay doors, HAL");
+        sut.addLine("  HAL. I'm sorry Dave. I'm afraid I can't do that");
+        List<Association> associations = sut.GetNewAssociations();
+
+        assertThat(associations, hasItem(expectedAssociation1));
+        assertThat(associations, hasItem(expectedAssociation2));
+    }
+
     @Before
     public void SetUp () {
         sut = new PlayAnalyser(new LineAnalyser());

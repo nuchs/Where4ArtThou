@@ -25,21 +25,40 @@ class PlayAnalyser {
     }
 
     void addLine(String line) {
+        if(isBlank(line)) {
+            return;
+        }
         LineType type = analyser.analyse(line);
         newSpeaker = "";
 
         if (someoneSpoke(type)) {
-            String speaker = analyser.getSpeaker(line);
-            recordIfNew(speaker);
-            newScene = false;
+            getSpeakerDetails(line);
         } else if (aNewSceneHasStarted(type)) {
-            characters.clear();
-            scene = "nowhere";
-            newScene = true;
+            prepareForNewScene();
         } else if (newScene) {
-            scene = line.trim();
-            newScene = false;
+            getSceneDescription(line);
         }
+    }
+
+    private void prepareForNewScene() {
+        characters.clear();
+        scene = "nowhere";
+        newScene = true;
+    }
+
+    private void getSpeakerDetails(String line) {
+        String speaker = analyser.getSpeaker(line);
+        recordIfNew(speaker);
+        newScene = false;
+    }
+
+    private void getSceneDescription(String line) {
+        scene = line;
+        newScene = false;
+    }
+
+    private boolean isBlank(String line) {
+        return line.trim().isEmpty();
     }
 
     private void associateExistingCharacterWithNewSpeaker(String character, ArrayList<Association> associations) {
