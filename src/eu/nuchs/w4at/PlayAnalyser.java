@@ -80,7 +80,7 @@ class PlayAnalyser {
     }
 
     private boolean someoneSpoke(LineType type) {
-        return type == LineType.CHARACTER;
+        return type == LineType.SPEAKER;
     }
 
     private boolean aNewSceneHasStarted(LineType type) {

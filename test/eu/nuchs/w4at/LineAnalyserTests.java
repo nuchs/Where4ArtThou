@@ -34,13 +34,23 @@ public class LineAnalyserTests {
     }
 
     @Test
-    public void ALineInWhichACharacterStartsToSpeakIsACharacterLine() {
-        assertThat(sut.analyse("  BOB. Hello World!"), is(equalTo(LineType.CHARACTER)));
+    public void ALineInWhichACharacterStartsToSpeakIsASpeakerLine() {
+        assertThat(sut.analyse("  BOB. Hello World!"), is(equalTo(LineType.SPEAKER)));
+    }
+
+    @Test
+    public void IfALineDoesNotStartWithWhiteSpaceItIsNotASpeakerLine() {
+        assertThat(sut.analyse("BOB. Hello World!"), is(not(equalTo(LineType.SPEAKER))));
+    }
+
+    @Test
+    public void ALineInWhichACharacterIsDescribedIsACharacterLine() {
+        assertThat(sut.analyse("  BOB, The hero of the story!"), is(equalTo(LineType.CHARACTER)));
     }
 
     @Test
     public void IfALineDoesNotStartWithWhiteSpaceItIsNotACharacterLine() {
-        assertThat(sut.analyse("BOB. Hello World!"), is(not(equalTo(LineType.CHARACTER))));
+        assertThat(sut.analyse("BOB, The hero of the story!"), is(equalTo(LineType.UNCLASSIFIED)));
     }
 
     @Test
@@ -54,8 +64,18 @@ public class LineAnalyserTests {
     }
 
     @Test
-    public void RequestingTheSpeakerShouldGetTheNameOfTheSpeakerForCharacterLines() {
+    public void RequestingTheSpeakerShouldGetTheNameOfTheSpeakerForASpeakerLine() {
         assertThat(sut.getSpeaker("  BOB. Hello World!"), is(equalTo("BOB")));
+    }
+
+    @Test
+    public void RequestingTheCharacterShouldGetTheNameOfTheCharacterForACharacterLine() {
+        assertThat(sut.getCharacter("  BOB, The hero of the story!"), is(equalTo("BOB")));
+    }
+
+    @Test
+    public void TheStartOfTheCharacterListIsADramaisPersonaeLine() {
+        assertThat(sut.analyse("DRAMATIS PERSONAE"), is(equalTo(LineType.DRAMATIS_PERSONAE)));
     }
 
     @Before

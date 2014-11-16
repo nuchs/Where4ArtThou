@@ -26,7 +26,7 @@ public class MeetingsTests {
   public void TwoCharactersAddedAtTheSameLocationShouldBothBeRecordedAgainstThatLocation() {
     sut.add("Pub", "Ford");
     sut.add("Pub", "Arthur");
-    String expected = "{\"locations\":{\"Pub\":[\"Ford\",\"Arthur\"]}}";
+    String expected = "{\"locations\":{\"Pub\":[\"Arthur\",\"Ford\"]}}";
     assertThat(gson.toJson(sut), is(equalTo(expected)));
   }
 
