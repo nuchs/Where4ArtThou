@@ -9,11 +9,6 @@ import java.io.IOException;
 
 public class HadoopAssociation implements Writable {
 
-    public void HadoopAssociation () {
-        associate = new Text("");
-        location = new Text("");
-    }
-
     public void set(String anAssociate, String aLocation) {
 
         if (isNullOrWhiteSpace(anAssociate)) {
@@ -24,8 +19,8 @@ public class HadoopAssociation implements Writable {
             throw new IllegalArgumentException("aLocation");
         }
 
-        associate = new Text(anAssociate);
-        location = new Text(aLocation);
+        associate.set(anAssociate.toLowerCase());
+        location.set(aLocation.toLowerCase());
     }
 
     public Text getLocation() {
@@ -52,6 +47,6 @@ public class HadoopAssociation implements Writable {
         return word == null || word.trim().isEmpty();
     }
 
-    private Text associate;
-    private Text location;
+    private Text associate = new Text("");
+    private Text location = new Text("");
 }

@@ -44,11 +44,6 @@ public class LineAnalyserTests {
     }
 
     @Test
-    public void IfTheFirstSentenceOnALineIsNotAllInCapsItIsNotACharacterLine() {
-        assertThat(sut.analyse("  Bob. Hello World!"), is(not(equalTo(LineType.CHARACTER))));
-    }
-
-    @Test
     public void ABlankLineShouldBeUnclassified() {
         assertThat(sut.analyse(""), is(equalTo(LineType.UNCLASSIFIED)));
     }

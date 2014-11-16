@@ -35,5 +35,5 @@ class LineAnalyser {
     }
 
     private Pattern newScene = Pattern.compile("^(SCENE|ACT)\\b");
-    private Pattern newSpeaker = Pattern.compile("^\\s+([A-Z]+)\\.");
+    private Pattern newSpeaker = Pattern.compile("^\\s+([A-Z][A-Za-z]+)\\.");
 }
